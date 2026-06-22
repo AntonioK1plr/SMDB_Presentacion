@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados de Proyecto de Base de Datos - CiberTech</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#0b1f3a;
+      --navy-2:#102b4e;
+      --blue:#1f6fbf;
+      --sky:#6fb6ff;
+      --ice:#eef6fd;
+      --line:#d8e2ee;
+      --muted:#6b7a8a;
+      --text:#142033;
+      --panel:#ffffff;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'DM Sans', sans-serif;
+      color:var(--text);
+      background:#eef3f8;
+    }
+
+    .app-shell{
+      width:100%;
+      min-height:100vh;
+      padding:26px;
+      background:
+        radial-gradient(circle at 85% 5%, rgba(111,182,255,.18), transparent 28%),
+        linear-gradient(135deg,#edf4fb 0%,#f8fbfe 100%);
+    }
+
+    .deck{
+      max-width:1420px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid rgba(11,31,58,.08);
+      box-shadow:0 24px 60px rgba(20,43,72,.16);
+      overflow:hidden;
+      border-radius:26px;
+    }
+
+    .hero{
+      position:relative;
+      min-height:250px;
+      overflow:hidden;
+      background:var(--navy);
+    }
+
+    .hero img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.34;
+    }
+
+    .hero:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(7,22,42,.96) 0%, rgba(7,22,42,.88) 45%, rgba(7,22,42,.42) 100%);
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      padding:28px 42px 30px;
+      color:#fff;
+    }
+
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:34px;
+      gap:20px;
+    }
+
+    .brand-wrap{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-mark{
+      width:38px;
+      height:38px;
+      border:1px solid rgba(255,255,255,.45);
+      border-radius:11px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(10px);
+    }
+
+    .brand-mark i{width:20px;height:20px;color:#9bd0ff}
+    .brand-text{font-size:18px;font-weight:700;letter-spacing:.02em}
+    .project-pill{
+      padding:7px 12px;
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      font-size:12px;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      color:#cfe6fb;
+    }
+
+    .hero-copy{
+      max-width:760px;
+    }
+
+    .eyebrow{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#8fc7fb;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .hero-title{
+      margin:0;
+      max-width:720px;
+      line-height:1.04;
+      letter-spacing:-.04em;
+      font-weight:700;
+    }
+
+    .hero-subtitle{
+      margin-top:14px;
+      max-width:610px;
+      line-height:1.6;
+      color:#d8e7f6;
+    }
+
+    .section-nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:16px 24px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+      overflow-x:auto;
+    }
+
+    .nav-btn{
+      border:none;
+      background:transparent;
+      color:#6a7786;
+      border-radius:12px;
+      padding:11px 15px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      white-space:nowrap;
+      transition:.25s ease;
+    }
+
+    .nav-btn i{width:16px;height:16px}
+    .nav-btn:hover{background:#eef5fb;color:#1f6fbf}
+    .nav-btn.active{
+      background:#e7f1fb;
+      color:#145f9e;
+      box-shadow:inset 0 0 0 1px #c9e1f7;
+    }
+
+    .content-area{
+      padding:28px 32px 24px;
+      min-height:580px;
+      position:relative;
+      background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+    }
+
+    .panel{
+      display:none;
+      animation:fadeUp .35s ease;
+    }
+    .panel.active{display:block}
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      align-items:flex-start;
+      margin-bottom:24px;
+    }
+
+    .section-kicker{
+      color:#1f6fbf;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:11px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .section-title{
+      margin:0;
+      color:#10213a;
+      line-height:1.1;
+      letter-spacing:-.03em;
+      font-weight:700;
+    }
+
+    .section-desc{
+      margin-top:9px;
+      color:#68798c;
+      max-width:780px;
+      line-height:1.55;
+    }
+
+    .section-badge{
+      min-width:110px;
+      text-align:right;
+      color:#8ba0b3;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      padding-top:4px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1.35fr .85fr;
+      gap:20px;
+    }
+
+    .info-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 10px 22px rgba(18,44,74,.05);
+    }
+
+    .icon-box{
+      width:42px;height:42px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background:#edf6ff;color:#1e6fb1;margin-bottom:16px;
+    }
+    .icon-box i{width:20px;height:20px}
+    .card-title{font-weight:700;color:#17304e;margin-bottom:8px}
+    .card-copy{color:#738191;line-height:1.5;font-size:14px}
+
+    .side-panel{
+      background:linear-gradient(145deg,#0c2b4b,#123c66);
+      border-radius:20px;
+      padding:24px;
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .check-list{display:flex;flex-direction:column;gap:13px;position:relative;z-index:2}
+    .check-item{display:flex;gap:10px;align-items:flex-start;color:#dbeafa;font-size:14px;line-height:1.45}
+    .check-item i{width:17px;height:17px;color:#79c1ff;margin-top:1px;flex:0 0 auto}
+
+    .note-box{
+      border-left:4px solid #2b7fc1;
+      background:#eef6fc;
+      padding:16px 18px;
+      color:#415b72;
+      border-radius:0 12px 12px 0;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .dev-layout{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:20px;
+    }
+
+    .code-card{
+      background:#0b1b2e;
+      border-radius:18px;
+      padding:20px;
+      color:#eaf4ff;
+      box-shadow:0 16px 30px rgba(9,31,56,.2);
+    }
+    .code-top{
+      display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;
+    }
+    .dots{display:flex;gap:6px}
+    .dots span{width:9px;height:9px;border-radius:50%}
+    .dots span:nth-child(1){background:#ff6b6b}
+    .dots span:nth-child(2){background:#ffd166}
+    .dots span:nth-child(3){background:#6edb8f}
+    .code-label{font-size:11px;color:#9bb3cc;letter-spacing:.12em;text-transform:uppercase}
+    
+    .code-container {
+      max-height:340px;
+      overflow-y:auto;
+      padding-right:5px;
+    }
+    .code-container pre{margin:0;}
+    .code-container::-webkit-scrollbar {width: 6px;}
+    .code-container::-webkit-scrollbar-thumb {background: #1f3a60; border-radius: 4px;}
+
+    pre code{
+      white-space:pre;
+      font-family:'Space Mono', monospace;
+      font-size:11px;
+      line-height:1.6;
+      color:#cce3fb;
+    }
+
+    .query-card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .query-item {
+      padding:12px;
+      background:#f8fbfe;
+      border-left:3px solid #1f6fbf;
+      border-radius:0 8px 8px 0;
+    }
+
+    /* PLACEHOLDER PARA IMÁGENES */
+    .img-placeholder {
+      margin-top: 20px;
+      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 30px 20px;
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .img-placeholder i { width: 24px; height: 24px; color: #94a3b8; }
+    .img-placeholder span { font-family: 'Space Mono', monospace; font-size: 11px; color: #0f172a; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-top: 4px;}
+
+    .footer-progress{
+      padding:18px 32px 24px;
+      background:#fff;
+      border-top:1px solid var(--line);
+    }
+    .progress-head{
+      display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;
+      font-size:11px;color:#7a8b9c;text-transform:uppercase;letter-spacing:.12em;
+    }
+    .progress-track{
+      height:6px;background:#edf2f6;border-radius:999px;overflow:hidden;
+    }
+    .progress-fill{
+      width:10%;
+      height:100%;
+      background:linear-gradient(90deg,#1b67a5,#5aa6e3);
+      border-radius:999px;
+      transition:width .3s ease;
+    }
+
+    .focus-ring:focus-visible{
+      outline:3px solid rgba(87,168,232,.55);
+      outline-offset:2px;
+    }
+
+    @media (max-width: 1024px){
+      .grid-2, .dev-layout {grid-template-columns:1fr}
+      .grid-3 {grid-template-columns:repeat(2, 1fr)}
+    }
+    @media (max-width: 640px){
+      .app-shell{padding:10px}
+      .deck{border-radius:16px}
+      .topline{flex-direction:column;align-items:flex-start;margin-bottom:24px}
+      .hero{min-height:280px}
+      .section-nav{padding:12px}
+      .nav-btn{padding:10px 12px}
+      .content-area{padding:20px 16px}
+      .grid-3 {grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="deck">
+      
+      <header class="hero">
+        <img loading="lazy" src="https://images.pexels.com/photos/37730211/pexels-photo-37730211.jpeg" alt="Modern tech infrastructure with blue lights.">
+        <div class="hero-content">
+          <div class="topline">
+            <div class="brand-wrap">
+              <div class="brand-mark"><i data-lucide="database"></i></div>
+              <div class="brand-text">CyberCore Tech</div>
+            </div>
+            <div class="project-pill">UPIICSA • GRUPO: 5CM5</div>
+          </div>
+          <div class="hero-copy">
+            <div class="eyebrow">Sistemas Manejadores de Bases de Datos</div>
+            <h1 class="hero-title text-xl md:text-3xl font-bold">Resultados de proyecto de base de datos para CiberTech</h1>
+          </div>
+        </div>
+      </header>
+
+      <nav class="section-nav" aria-label="Secciones de la presentación">
+        <button class="nav-btn active focus-ring" type="button" data-target="sec-1"><span>1. CiberTech BD</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-2"><span>2. Introducción</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-3"><span>3. Diseño Lógico</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-4"><span>4. Diseño Físico</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-5"><span>5. Estructura</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-6"><span>6. Población</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-7"><span>7. Consultas</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-8"><span>8. Vistas y Triggers</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-9"><span>9. Concurrencia</span></button>
+        <button class="nav-btn focus-ring" type="button" data-target="sec-10"><span>10. Conclusiones</span></button>
+      </nav>
+
+      <main class="content-area">
+
+        <section id="sec-1" class="panel active">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 01</div>
+              <h2 class="section-title">Resultados de proyecto de base de datos para CiberTech</h2>
+              <p class="section-desc">Proyecto CyberCore Tech — Sistemas Manejadores de Bases de Datos.</p>
+            </div>
+            <div class="section-badge">Inicio</div>
+          </div>
+          <div class="grid-3">
+            <div class="info-card">
+              <div class="card-title">Institución</div>
+              <div class="card-copy text-sm">UPIICSA - Instituto Politécnico Nacional.</div>
+            </div>
+            <div class="info-card">
+              <div class="card-title">Grupo e Integrantes</div>
+              <div class="card-copy text-sm">Grupo: 5CM5<br>Montes Rangel Diana Paola | Alba Castañeda Antonio Saul</div>
+            </div>
+            <div class="info-card">
+              <div class="card-title">Periodo</div>
+              <div class="card-copy text-sm">Semestre: 26/2</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-2" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 02</div>
+              <h2 class="section-title">Introducción al Sistema</h2>
+              <p class="section-desc">Estrategia operacional y control de entidades de negocio.</p>
+            </div>
+            <div class="section-badge">Fase Inicial</div>
+          </div>
+          <div class="note-box">
+            El proyecto consiste en una base de datos para un taller de reparación de celulares y dispositivos electrónicos. El sistema permite gestionar establecimientos, clientes, dispositivos, técnicos especialistas, proveedores, repuestos, órdenes de servicio y los detalles de los repuestos utilizados en cada reparación. Se implementaron conceptos de consultas SQL, seguridad, integridad y concurrencia.
+          </div>
+        </section>
+
+        <section id="sec-3" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 03</div>
+              <h2 class="section-title">Diseño Lógico del Negocio</h2>
+              <p class="section-desc">La base de datos se llama <strong>Taller_de_Celulares</strong> y contiene 8 tablas interrelacionadas:</p>
+            </div>
+            <div class="section-badge">Modelo E-R</div>
+          </div>
+          <div class="grid-3 mb-4">
+            <div class="info-card"><strong>ESTABLECIMIENTO:</strong> <span class="text-xs text-slate-500 block mt-1">Almacena las sucursales físicas del taller.</span></div>
+            <div class="info-card"><strong>CLIENTE:</strong> <span class="text-xs text-slate-500 block mt-1">Contiene la información de los dueños de los dispositivos.</span></div>
+            <div class="info-card"><strong>DISPOSITIVO:</strong> <span class="text-xs text-slate-500 block mt-1">Registra los equipos que ingresan (número de serie).</span></div>
+            <div class="info-card"><strong>PROVEEDOR:</strong> <span class="text-xs text-slate-500 block mt-1">Catálogo de empresas que suministran piezas de repuesto.</span></div>
+            <div class="info-card"><strong>TECNICO_ESPECIALISTA:</strong> <span class="text-xs text-slate-500 block mt-1">Personal técnico, su especialidad y sucursal asignada.</span></div>
+            <div class="info-card"><strong>REPUESTO:</strong> <span class="text-xs text-slate-500 block mt-1">Inventario de piezas disponibles con precio y stock real.</span></div>
+            <div class="info-card"><strong>ORDEN_SERVICIO:</strong> <span class="text-xs text-slate-500 block mt-1">Tabla central asociativa de asignación, diagnóstico y estados.</span></div>
+            <div class="info-card"><strong>DETALLE_REPUESTOS:</strong> <span class="text-xs text-slate-500 block mt-1">Registra refacciones aplicadas por orden con cálculo de subtotales.</span></div>
+          </div>
+          <div class="img-placeholder">
+            <i data-lucide="image"></i>
+            <div>[Espacio para Imagen]</div>
+            <span>ALT: Diagrama E-R en SQL Server</span>
+          </div>
+        </section>
+
+        <section id="sec-4" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 04</div>
+              <h2 class="section-title">Diseño Físico de Base de Datos (DDL)</h2>
+              <p class="section-desc">Claves primarias, foráneas para integridad referencial y restricciones CHECK para dominios válidos.</p>
+            </div>
+            <div class="section-badge">Data Definition</div>
+          </div>
+          <div class="dev-layout">
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Tablas_Primarias.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>-- Creación de la base de datos e infraestructura
+CREATE DATABASE Taller_de_Celulares;
+GO
+USE Taller_de_Celulares;
+GO
+
+CREATE TABLE ESTABLECIMIENTO (
+    id_establecimiento INT PRIMARY KEY,
+    nombre_sucursal VARCHAR(100),
+    direccion VARCHAR(200),
+    telefono VARCHAR(20)
+);
+
+CREATE TABLE CLIENTE (
+    id_cliente INT PRIMARY KEY,
+    nombre_completo VARCHAR(100),
+    correo VARCHAR(100),
+    numero VARCHAR(20)
+);
+
+CREATE TABLE DISPOSITIVO (
+    num_serie VARCHAR(50) PRIMARY KEY,
+    marca VARCHAR(50),
+    modelo VARCHAR(50),
+    tipo VARCHAR(50) CHECK (tipo IN ('Smartphone', 'Tablet', 'Smartwatch', 'Dron', 'VR', 'IA'))
+);</code></pre>
+              </div>
+            </div>
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Tablas_Dependientes.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>CREATE TABLE ORDEN_SERVICIO (
+    id_orden INT PRIMARY KEY,
+    id_establecimiento INT,
+    id_cliente INT,
+    num_serie VARCHAR(50),
+    id_tecnico INT,
+    fecha_ingreso DATE,
+    diagnostico_previo VARCHAR(MAX),
+    estado_actual VARCHAR(20) CHECK (estado_actual IN ('Recibido', 'En_Reparacion', 'Finalizado')),
+    FOREIGN KEY (id_establecimiento) REFERENCES ESTABLECIMIENTO(id_establecimiento),
+    FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente),
+    FOREIGN KEY (num_serie) REFERENCES DISPOSITIVO(num_serie),
+    FOREIGN KEY (id_tecnico) REFERENCES TECNICO_ESPECIALISTA(id_tecnico)
+);</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="img-placeholder">
+            <i data-lucide="image"></i>
+            <div>[Espacio para Imagen]</div>
+            <span>ALT: Creacion de tablas</span>
+          </div>
+        </section>
+
+        <section id="sec-5" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 05</div>
+              <h2 class="section-title">Estructura y Verificación de Esquema</h2>
+              <p class="section-desc">Ejecución de procedimientos del sistema para validar la correcta declaración y metadatos de las tablas.</p>
+            </div>
+            <div class="section-badge">Metadatos</div>
+          </div>
+          <div class="dev-layout">
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Verificacion_Esquema.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>-- 5. Verificar la estructura de las tablas
+EXEC sp_help 'ESTABLECIMIENTO';
+EXEC sp_help 'CLIENTE';
+EXEC sp_help 'DISPOSITIVO';
+EXEC sp_help 'PROVEEDOR';
+EXEC sp_help 'TECNICO_ESPECIALISTA';
+EXEC sp_help 'REPUESTO';
+EXEC sp_help 'ORDEN_SERVICIO';
+EXEC sp_help 'DETALLE_REPUESTOS';
+GO
+
+-- Listar las 8 tablas de la base activa
+SELECT TABLE_NAME 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_TYPE = 'BASE TABLE';</code></pre>
+              </div>
+            </div>
+            <div class="img-placeholder mt-0">
+              <i data-lucide="image"></i>
+              <div>[Espacio para Imagen]</div>
+              <span>ALT: Lorem ipsum dolor sit amet</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-6" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 06</div>
+              <h2 class="section-title">Población de la Base de Datos</h2>
+              <p class="section-desc">Inserción de tuplas de prueba controladas y verificación cuantitativa del estado de persistencia de las tablas.</p>
+            </div>
+            <div class="section-badge">Volumetría</div>
+          </div>
+          <div class="dev-layout">
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Conteo_Registros.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>-- Verificar cantidad de registros por tabla
+SELECT 'ESTABLECIMIENTO' AS Tabla, COUNT(*) AS Registros FROM ESTABLECIMIENTO
+UNION ALL
+SELECT 'CLIENTE', COUNT(*) FROM CLIENTE
+UNION ALL
+SELECT 'DISPOSITIVO', COUNT(*) FROM DISPOSITIVO
+UNION ALL
+SELECT 'PROVEEDOR', COUNT(*) FROM PROVEEDOR
+UNION ALL
+SELECT 'TECNICO_ESPECIALISTA', COUNT(*) FROM TECNICO_ESPECIALISTA
+UNION ALL
+SELECT 'REPUESTO', COUNT(*) FROM REPUESTO
+UNION ALL
+SELECT 'ORDEN_SERVICIO', COUNT(*) FROM ORDEN_SERVICIO
+UNION ALL
+SELECT 'DETALLE_REPUESTOS', COUNT(*) FROM DETALLE_REPUESTOS;
+GO</code></pre>
+              </div>
+            </div>
+            <div class="img-placeholder mt-0">
+              <i data-lucide="image"></i>
+              <div>[Espacio para Imagen]</div>
+              <span>ALT: Lorem ipsum dolor sit amet</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-7" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 07</div>
+              <h2 class="section-title">Consultas Multitabla (DML Complejo)</h2>
+              <p class="section-desc">Explotación avanzada del almacenamiento relacional mediante la cláusula INNER JOIN para responder a necesidades operativas.</p>
+            </div>
+            <div class="section-badge">Explotación de Datos</div>
+          </div>
+          <div class="grid-2 mb-4">
+            <div class="query-card">
+              <div class="query-item">
+                <strong>1. Reporte completo de órdenes:</strong> Une 4 tablas base para vincular el identificador de servicio con el cliente real, dispositivo y el técnico responsable. (Retorna 20 filas).
+              </div>
+              <div class="query-item">
+                <strong>2. Repuestos con stock crítico:</strong> Une piezas y proveedores oficiales aislando registros con stock menor a 10 unidades para automatizar solicitudes de compra. (Retorna 9 filas).
+              </div>
+              <div class="query-item">
+                <strong>3. Técnicos por establecimiento:</strong> Muestra el despliegue del capital humano operativo en las sucursales activas.
+              </div>
+            </div>
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Consultas_Joins.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>-- Reporte de Órdenes Avanzado
+SELECT 
+    o.id_orden, c.nombre_completo AS cliente,
+    d.modelo AS dispositivo, t.nombre AS tecnico,
+    o.estado_actual
+FROM ORDEN_SERVICIO o
+INNER JOIN CLIENTE c ON o.id_cliente = c.id_cliente
+INNER JOIN DISPOSITIVO d ON o.num_serie = d.num_serie
+INNER JOIN TECNICO_ESPECIALISTA t ON o.id_tecnico = t.id_tecnico;
+
+-- Filtro Stock Bajo
+SELECT r.nombre_pieza, r.stock_actual, p.empresa AS proveedor
+FROM REPUESTO r
+INNER JOIN PROVEEDOR p ON r.id_proveedor = p.id_proveedor
+WHERE r.stock_actual &lt; 10;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="img-placeholder">
+            <i data-lucide="image"></i>
+            <div>[Espacio para Imagen]</div>
+            <span>ALT: Lorem ipsum dolor sit amet</span>
+          </div>
+        </section>
+
+        <section id="sec-8" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 08</div>
+              <h2 class="section-title">Seguridad e Integridad Activa</h2>
+              <p class="section-desc">Abstracción mediante vistas para ocultar datos sensibles y triggers de sustitución (INSTEAD OF) para blindar reglas cronológicas.</p>
+            </div>
+            <div class="section-badge">Lógica Programada</div>
+          </div>
+          <div class="dev-layout">
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Objetos_Servidor.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>-- 1. Crear Vista de Seguridad
+CREATE VIEW vista_tecnicos_segura AS
+SELECT id_tecnico, nombre, especialidad FROM TECNICO_ESPECIALISTA;
+GO
+
+-- 2. Trigger para Restricción de Fecha Lógica
+CREATE TRIGGER trg_validar_fecha_ingreso
+ON ORDEN_SERVICIO INSTEAD OF INSERT AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted WHERE fecha_ingreso > CAST(GETDATE() AS DATE))
+    BEGIN
+        RAISERROR('La fecha de ingreso no puede ser futura', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+    ELSE
+        INSERT INTO ORDEN_SERVICIO SELECT * FROM inserted;
+END;
+GO</code></pre>
+              </div>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="img-placeholder mt-0 py-4">
+                <i data-lucide="image"></i>
+                <div>[Espacio para Imagen]</div>
+                <span>ALT: Lorem ipsum dolor sit amet</span>
+              </div>
+              <div class="bg-slate-900 text-red-400 p-3 rounded-lg font-mono text-xs">
+                -- Inserción de prueba con error inducido<br>
+                INSERT INTO ORDEN_SERVICIO VALUES (99, 1, 1, 'SN001', 1, '2026-01-01', ...);
+              </div>
+              <div class="img-placeholder mt-0 py-4">
+                <i data-lucide="image"></i>
+                <div>[Espacio para Imagen]</div>
+                <span>ALT: Lorem ipsum dolor sit amet</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-9" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 09</div>
+              <h2 class="section-title">Concurrencia y Técnicas de Bloqueo</h2>
+              <p class="section-desc">Gestión transaccional explícita para evitar lecturas sucias y asegurar actualizaciones atómicas en el inventario.</p>
+            </div>
+            <div class="section-badge">Transaccionalidad</div>
+          </div>
+          <div class="dev-layout">
+            <div class="code-card">
+              <div class="code-top">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="code-label">Aislamiento_Transacciones.sql</div>
+              </div>
+              <div class="code-container">
+<pre><code>BEGIN TRANSACTION;
+DECLARE @stock INT;
+SELECT @stock = stock_actual FROM REPUESTO WHERE id_repuesto = 1;
+
+IF @stock >= 1
+BEGIN
+    UPDATE REPUESTO SET stock_actual = stock_actual - 1 WHERE id_repuesto = 1;
+    INSERT INTO DETALLE_REPUESTOS (id_detalle, id_orden, id_repuesto, cantidad_usada, subtotal)
+    VALUES (36, 1, 1, 1, 150.50);
+    COMMIT;
+    PRINT 'Transacción completada.';
+END
+ELSE
+BEGIN
+    ROLLBACK;
+    PRINT 'Stock insuficiente. Operación abortada.';
+END;
+GO</code></pre>
+              </div>
+            </div>
+            <div>
+              <div class="img-placeholder mt-0">
+                <i data-lucide="image"></i>
+                <div>[Espacio para Imagen]</div>
+                <span>ALT: Lorem ipsum dolor sit amet</span>
+              </div>
+              <div class="info-card mt-3">
+                <div class="card-title text-sm">Verificación Post-Transacción</div>
+                <div class="card-copy text-xs font-mono bg-slate-50 p-2 rounded">
+                  SELECT id_repuesto, stock_actual FROM REPUESTO WHERE id_repuesto = 1;
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sec-10" class="panel">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sección 10</div>
+              <h2 class="section-title">Conclusiones Generales</h2>
+              <p class="section-desc">Cierre normativo e industrial del proyecto.</p>
+            </div>
+            <div class="section-badge">Cierre</div>
+          </div>
+          <div class="note-box mb-4">
+            El proyecto integra los conceptos fundamentales de bases de datos: modelado, consultas, seguridad, integridad y concurrencia. La base de datos <strong>Taller_de_Celulares</strong> es funcional y escalable, y los scripts presentados demuestran su aplicación práctica en un entorno real de taller de reparaciones.
+          </div>
+          <div class="img-placeholder">
+            <i data-lucide="image"></i>
+            <div>[Espacio para Imagen]</div>
+            <span>ALT: Lorem ipsum dolor sit amet</span>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="footer-progress">
+        <div class="progress-head">
+          <span>Progreso de la presentación</span>
+          <span id="progress-step">01 / 10</span>
+        </div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Iniciar catálogo de iconos Lucide
+      lucide.createIcons();
+
+      const buttons = document.querySelectorAll('.nav-btn');
+      const panels = document.querySelectorAll('.panel');
+      const progressFill = document.getElementById('progress-fill');
+      const progressStep = document.getElementById('progress-step');
+
+      buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+          const target = button.dataset.target;
+
+          // Limpiar clases activas de los botones de navegación
+          buttons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          // Mostrar exclusivamente la sección seleccionada
+          panels.forEach(panel => {
+            panel.classList.toggle('active', panel.id === target);
+          });
+
+          // Calcular y animar la barra de progreso lineal (10 secciones)
+          const step = index + 1;
+          progressFill.style.width = `${step * 10}%`;
+          progressStep.textContent = String(step).padStart(2, '0') + ' / 10';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
